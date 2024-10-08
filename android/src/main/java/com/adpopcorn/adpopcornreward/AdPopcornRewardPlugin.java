@@ -2,6 +2,8 @@ package com.adpopcorn.adpopcornreward;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -69,8 +71,16 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
     Adpopcorn.setEventListener(context, new IAdPOPcornEventListener() {
       @Override
       public void OnClosedOfferWallPage() {
-        Log.d("AdPopcornRewardPlugin","OnClosedOfferWallPage");
-        channel.invokeMethod("OnClosedOfferwall", null);
+        try {
+          Log.d("AdPopcornRewardPlugin","OnClosedOfferWallPage");
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+              if (channel != null)
+                channel.invokeMethod("OnClosedOfferwall", null);
+            }
+          });
+        }catch (Exception e){}
       }
 
       @Override
@@ -86,7 +96,16 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
       @Override
       public void OnCompletedCampaign() {
         Log.d("AdPopcornRewardPlugin","OnCompletedCampaign");
-        channel.invokeMethod("OnCompletedCampaign", null);
+        try {
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+              if(channel != null)
+                channel.invokeMethod("OnCompletedCampaign", null);
+            }
+          });
+        }catch (Exception e){}
+
       }
     });
     Adpopcorn.openOfferwall(context);
