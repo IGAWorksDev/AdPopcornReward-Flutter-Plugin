@@ -39,6 +39,12 @@ class AdPopcornReward {
         _channel.invokeMethod('openOfferwall', <String, dynamic>{
         });
     }
+    
+    static void closeOfferwall() {
+        _channel.setMethodCallHandler(_handleMethod);
+        _channel.invokeMethod('closeOfferwall', <String, dynamic>{
+        });
+    }
 
     static void setStyle(String title, String mainOfferwallColor, int startTabIndex) {
       _channel.setMethodCallHandler(_handleMethod);

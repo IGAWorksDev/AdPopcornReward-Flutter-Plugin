@@ -34,6 +34,10 @@
     {
       [self callOpenOfferwall:call result:result];
     }
+    else if([@"closeOfferwall" isEqualToString:call.method])
+    {
+      [self callCloseOfferwall:call result:result];
+    }
     else if([@"setStyle" isEqualToString:call.method])
     {
       [self callSetStyle:call result:result];
@@ -81,6 +85,10 @@
 
 - (void)callOpenOfferwall:(FlutterMethodCall*)call result:(FlutterResult)result {
     [AdPopcornOfferwall openOfferWallWithViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController] delegate:self userDataDictionaryForFilter:nil];
+}
+
+- (void)callCloseOfferwall:(FlutterMethodCall*)call result:(FlutterResult)result {
+    [AdPopcornOfferwall closeOfferwallViewController];
 }
 
 - (void)callSetStyle:(FlutterMethodCall*)call result:(FlutterResult)result {

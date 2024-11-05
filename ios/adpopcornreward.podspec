@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'adpopcornreward'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'AdPopcornReward Flutter plugin project.'
   s.description      = <<-DESC
 A new Flutter plugin project.
@@ -16,7 +16,7 @@ A new Flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'AdPopcornOfferwall', '5.0.5'
+  s.dependency 'AdPopcornOfferwall', '5.0.7'
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice.

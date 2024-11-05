@@ -49,6 +49,8 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
       result.success("Use AndroidManifest.xml");
     } else if (call.method.equals("openOfferwall")) {
       callOpenOfferwall(call, result);
+    } else if (call.method.equals("closeOfferwall")) {
+      // Nothing to do android
     } else if (call.method.equals("setStyle")) {
       callSetStyle(call, result);
     } else {
