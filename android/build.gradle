@@ -23,14 +23,14 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 31
-
+    namespace 'com.adpopcorn.adpopcornreward'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dependencies {
-        implementation 'com.igaworks.offerwall:AdPopcornOfferwall:9.1.2'
+        implementation 'com.igaworks.offerwall:AdPopcornOfferwall:9.1.5'
     }
 
     defaultConfig {
