@@ -38,6 +38,14 @@
     {
       [self callCloseOfferwall:call result:result];
     }
+    else if([@"openBridge" isEqualToString:call.method])
+    {
+      [self callOpenBridge:call result:result];
+    }
+    else if([@"openCSPage" isEqualToString:call.method])
+    {
+      [self callOpenCSPage:call result:result];
+    }
     else if([@"setStyle" isEqualToString:call.method])
     {
       [self callSetStyle:call result:result];
@@ -91,10 +99,18 @@
     [AdPopcornOfferwall closeOfferwallViewController];
 }
 
+- (void)callOpenBridge:(FlutterMethodCall*)call result:(FlutterResult)result {
+    NSString* bridgePlacementId = (NSString*)call.arguments[@"bridgePlacementId"];
+    [AdPopcornOfferwall openBridgeWithViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController] bridgePlacementId:bridgePlacementId delegate:self];
+}
+
+- (void)callOpenCSPage:(FlutterMethodCall*)call result:(FlutterResult)result {
+    [AdPopcornOfferwall openCSViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController]];
+}
+
 - (void)callSetStyle:(FlutterMethodCall*)call result:(FlutterResult)result {
     NSString* title = (NSString*)call.arguments[@"title"];
     NSString* mainOfferwallColor = (NSString*)call.arguments[@"mainOfferwallColor"];
-    NSInteger startTabIndex = (NSInteger)call.arguments[@"startTabIndex"];
     
     if(title != nil)
     {
@@ -105,11 +121,6 @@
     if(mainOfferwallColor != nil && mainOfferwallColor.length == 7)
     {
         [AdPopcornStyle sharedInstance].mainOfferwallColor = [self colorFromHexString:mainOfferwallColor];
-    }
-    
-    if(startTabIndex > 0)
-    {
-        [AdPopcornStyle sharedInstance].startTabIndex = startTabIndex;
     }
 }
 

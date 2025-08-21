@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     AdPopcornReward.setUserId('flutter_test_mick');
-    AdPopcornReward.setStyle('플루터 오퍼월', '#ff0000', 2);
+    AdPopcornReward.setStyle('플루터 오퍼월', '#ff0000');
     AdPopcornReward.openOfferwall();
   }
 

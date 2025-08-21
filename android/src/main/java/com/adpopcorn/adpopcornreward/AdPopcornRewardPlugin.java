@@ -49,6 +49,10 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
       result.success("Use AndroidManifest.xml");
     } else if (call.method.equals("openOfferwall")) {
       callOpenOfferwall(call, result);
+    } else if (call.method.equals("openBridge")) {
+      callOpenBridge(call, result);
+    } else if (call.method.equals("openCSPage")) {
+      callOpenCSPage(call, result);
     } else if (call.method.equals("closeOfferwall")) {
       // Nothing to do android
     } else if (call.method.equals("setStyle")) {
@@ -113,6 +117,17 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
     Adpopcorn.openOfferwall(context);
   }
 
+  private void callOpenBridge(@NonNull MethodCall call, @NonNull Result result)
+  {
+    final String bridgePlacementId = call.argument("bridgePlacementId");
+    Adpopcorn.openBridge(context, bridgePlacementId);
+  }
+
+  private void callOpenCSPage(@NonNull MethodCall call, @NonNull Result result)
+  {
+    Adpopcorn.openCSPage(context);
+  }
+
   private void callSetStyle(@NonNull MethodCall call, @NonNull Result result)
   {
     final String title = call.argument("title");
@@ -123,11 +138,6 @@ public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
     final String mainOfferwallColor = call.argument("mainOfferwallColor");
     if (!TextUtils.isEmpty(mainOfferwallColor)) {
       ApRewardStyle.mainOfferwallColor = Color.parseColor(mainOfferwallColor);
-    }
-
-    final int startTabIndex = call.argument("startTabIndex");
-    if (startTabIndex > 0) {
-      ApRewardStyle.startTabIndex = startTabIndex;
     }
   }
 

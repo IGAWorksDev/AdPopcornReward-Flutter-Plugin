@@ -30,7 +30,7 @@ android {
     }
 
     dependencies {
-        implementation 'com.igaworks.offerwall:AdPopcornOfferwall:9.1.5'
+        implementation 'com.igaworks.offerwall:AdPopcornOfferwall:9.2.0'
     }
 
     defaultConfig {

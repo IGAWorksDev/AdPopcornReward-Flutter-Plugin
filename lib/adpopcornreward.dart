@@ -45,13 +45,27 @@ class AdPopcornReward {
         _channel.invokeMethod('closeOfferwall', <String, dynamic>{
         });
     }
+    
+    static void openBridge(String bridgePlacementId) {
+        _channel.setMethodCallHandler(_handleMethod);
 
-    static void setStyle(String title, String mainOfferwallColor, int startTabIndex) {
+        _channel.invokeMethod('openBridge', <String, dynamic>{
+            'bridgePlacementId': bridgePlacementId
+        });
+    }
+    
+    static void openCSPage() {
+        _channel.setMethodCallHandler(_handleMethod);
+
+        _channel.invokeMethod('openCSPage', <String, dynamic>{
+        });
+    }
+
+    static void setStyle(String title, String mainOfferwallColor) {
       _channel.setMethodCallHandler(_handleMethod);
       _channel.invokeMethod('setStyle', <String, dynamic>{
         'title': title,
         'mainOfferwallColor': mainOfferwallColor,
-        'startTabIndex': startTabIndex,
       });
     }
 

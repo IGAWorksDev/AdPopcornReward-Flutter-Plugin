@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Update android/ios native sdk version(android 9.2.0, ios 5.2.0)
+
 ## 1.0.3
 
 * Update android/ios native sdk version(android 9.1.5, ios 5.1.0)
