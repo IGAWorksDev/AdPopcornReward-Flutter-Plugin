@@ -30,7 +30,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-          <meta-data android:name="adpopcorn_app_key" android:value="your_app_key"/>
+        <meta-data
+            android:name="enable_ap_log"
+            android:value="enable" />
+          <meta-data android:name="adpopcorn_app_key" android:value="1836641617"/>
   	  <meta-data android:name="adpopcorn_hash_key" android:value="your_hash_key"/>
     </application>
     <!-- Required to query activities that can process text, see:

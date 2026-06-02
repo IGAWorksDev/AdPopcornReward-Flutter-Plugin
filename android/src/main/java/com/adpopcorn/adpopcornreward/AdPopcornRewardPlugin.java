@@ -17,26 +17,60 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 /** AdPopcornRewardPlugin */
-public class AdPopcornRewardPlugin implements FlutterPlugin, MethodCallHandler {
+public class AdPopcornRewardPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private MethodChannel channel;
-  private Context context;
+  private Context context, activityContext;
+  private FlutterPluginBinding flutterPluginBinding;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "adpopcornreward");
-    channel.setMethodCallHandler(this);
+    this.flutterPluginBinding = flutterPluginBinding;
+    this.context = flutterPluginBinding.getApplicationContext();
+    setup(this, flutterPluginBinding.getBinaryMessenger());
+  }
 
-    context = flutterPluginBinding.getApplicationContext();
+  @Override
+  public void onAttachedToActivity(ActivityPluginBinding binding)
+  {
+    flutterPluginBinding.getPlatformViewRegistry()
+            .registerViewFactory("AdPopcornRewardNativeView", new AdPopcornRewardFLNativeViewFactory(binding.getActivity(), flutterPluginBinding.getBinaryMessenger()));
+    activityContext = binding.getActivity();
+  }
+
+  @Override
+  public void onDetachedFromActivityForConfigChanges() {
+
+  }
+
+  @Override
+  public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+    activityContext = binding.getActivity();
+  }
+
+  @Override
+  public void onDetachedFromActivity() {
+  }
+
+  private static void setup(AdPopcornRewardPlugin plugin, BinaryMessenger binaryMessenger) {
+    plugin.channel = new MethodChannel(binaryMessenger, "adpopcornreward");
+    plugin.channel.setMethodCallHandler(plugin);
+  }
+
+  public AdPopcornRewardPlugin()
+  {
   }
 
   @Override

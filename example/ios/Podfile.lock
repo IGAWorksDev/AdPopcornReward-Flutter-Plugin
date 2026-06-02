@@ -1,7 +1,7 @@
 PODS:
-  - AdPopcornOfferwall (5.2.0)
-  - adpopcornreward (1.0.4):
-    - AdPopcornOfferwall (= 5.2.0)
+  - AdPopcornOfferwall (5.2.3)
+  - adpopcornreward (1.0.6):
+    - AdPopcornOfferwall (= 5.2.3)
     - Flutter
   - Flutter (1.0.0)
 
@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  AdPopcornOfferwall: f82e27acf980cf760c5a4f2cf7fc89b976018217
-  adpopcornreward: 087d4e8fc37dd86cd35faacb387eb9ea0bc487f3
+  AdPopcornOfferwall: 8590504ec396f0aa10daf64225642c0d5954c65c
+  adpopcornreward: fdf52f55a521bc471790a40cd908d93a51b4953d
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
 
 PODFILE CHECKSUM: 663715e941f9adb426e33bf9376914006f9ea95b

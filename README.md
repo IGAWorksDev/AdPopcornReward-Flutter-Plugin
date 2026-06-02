@@ -4,8 +4,8 @@ AdPopcornReward plugin project.
 
 ## Current AdPopcornReward SDK version
 
-- Android : 9.2.0
-- iOS : 5.2.0
+- Android : 9.2.7
+- iOS : 5.2.3
 
 ## Install the Plugin
 
@@ -13,7 +13,7 @@ Add dependencies on pubspec.yaml
 
 ```
 dependencies:
-  adpopcornreward: ^1.0.4
+  adpopcornreward: ^1.0.6
 ```
 
 ## Integration Guide

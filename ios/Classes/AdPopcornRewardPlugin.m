@@ -1,6 +1,26 @@
 #import "AdPopcornRewardPlugin.h"
 #import <Foundation/Foundation.h>
 
+static UIWindow * _Nullable APActiveWindow(void) {
+    if (@available(iOS 15.0, *)) {
+        for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
+                return ((UIWindowScene *)scene).keyWindow;
+            }
+        }
+    }
+    if (@available(iOS 13.0, *)) {
+        for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
+                for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+                    if (window.isKeyWindow) return window;
+                }
+            }
+        }
+    }
+    return [UIApplication sharedApplication].keyWindow;
+}
+
 @interface AdPopcornRewardPlugin() <AdPopcornOfferwallDelegate>
 @end
 
@@ -15,6 +35,10 @@
     AdPopcornRewardPlugin* instance = [[AdPopcornRewardPlugin alloc] init];
     instance.channel = channel;
     [registrar addMethodCallDelegate:instance channel:channel];
+    
+    AdPopcornRewardFLNativeViewFactory* nativeFactory =
+          [[AdPopcornRewardFLNativeViewFactory alloc] initWithMessenger:registrar.messenger];
+      [registrar registerViewFactory:nativeFactory withId:@"AdPopcornRewardNativeView"];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -92,7 +116,7 @@
 }
 
 - (void)callOpenOfferwall:(FlutterMethodCall*)call result:(FlutterResult)result {
-    [AdPopcornOfferwall openOfferWallWithViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController] delegate:self userDataDictionaryForFilter:nil];
+    [AdPopcornOfferwall openOfferWallWithViewController:[APActiveWindow() rootViewController] delegate:self userDataDictionaryForFilter:nil];
 }
 
 - (void)callCloseOfferwall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -101,11 +125,11 @@
 
 - (void)callOpenBridge:(FlutterMethodCall*)call result:(FlutterResult)result {
     NSString* bridgePlacementId = (NSString*)call.arguments[@"bridgePlacementId"];
-    [AdPopcornOfferwall openBridgeWithViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController] bridgePlacementId:bridgePlacementId delegate:self];
+    [AdPopcornOfferwall openBridgeWithViewController:[APActiveWindow() rootViewController] bridgePlacementId:bridgePlacementId delegate:self];
 }
 
 - (void)callOpenCSPage:(FlutterMethodCall*)call result:(FlutterResult)result {
-    [AdPopcornOfferwall openCSViewController:[[[[UIApplication sharedApplication] delegate] window] rootViewController]];
+    [AdPopcornOfferwall openCSViewController:[APActiveWindow() rootViewController]];
 }
 
 - (void)callSetStyle:(FlutterMethodCall*)call result:(FlutterResult)result {
